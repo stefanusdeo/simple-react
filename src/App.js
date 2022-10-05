@@ -1,24 +1,58 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { Link, Route, Routes } from 'react-router-dom';
+import Barang from './Pages/Barang';
+import Pelanggan from './Pages/Pelanggan';
+import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import GroupIcon from '@mui/icons-material/Group';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import Transaksi from './Pages/Transaksi';
 
 function App() {
+  const [value, setValue] = useState('Barang');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <Routes>
+        <Route path='/' element={<Barang />} />
+        <Route path='/pelanggan' element={<Pelanggan />} />
+        <Route path='/transaksi' element={<Transaksi />} />
+      </Routes>
+      <Paper
+        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
+        elevation={3}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <BottomNavigationAction
+            label='Barang'
+            component={Link}
+            to='/'
+            value='Barang'
+            icon={<InventoryIcon />}
+          />
+          <BottomNavigationAction
+            label='Pelanggan'
+            component={Link}
+            to='/pelanggan'
+            value='Pelanggan'
+            icon={<GroupIcon />}
+          />
+          <BottomNavigationAction
+            label='Transaksi'
+            component={Link}
+            to='/transaksi'
+            value='Transaksi'
+            icon={<ReceiptLongIcon />}
+          />
+        </BottomNavigation>
+      </Paper>
+    </>
   );
 }
 
